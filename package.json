@@ -4,6 +4,7 @@
   "description": "CDN usable by anyone for free using the domain extention projectoxford.com infront of static content",
   "main": "index.js",
   "scripts": {
+    "start": "node index.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
