@@ -1,0 +1,23 @@
+{
+  "name": "project-cambridge",
+  "version": "1.0.0",
+  "description": "CDN usable by anyone for free using the domain extention projectoxford.com infront of static content",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/PandelisZ/project-cambridge.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/PandelisZ/project-cambridge/issues"
+  },
+  "homepage": "https://github.com/PandelisZ/project-cambridge#readme",
+  "dependencies": {
+    "aws-sdk": "^2.7.5",
+    "express": "^4.14.0"
+  }
+}
