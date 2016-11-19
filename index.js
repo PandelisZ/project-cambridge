@@ -61,8 +61,6 @@ var compareFiles = (file) => {
   })
 }
 
-console.log(compareFiles('http://5to9studios.com/font-awesome/css/font-awesome.min.css'))
-
 function genFileName(file){
   return genHash.sha1(file) + path.extname(file)
 }
