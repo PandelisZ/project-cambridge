@@ -6,7 +6,7 @@ var path = require('path')
 
 var http = require('http');
 var fs = require('fs');
-
+var fse = require('fs-extra')
 var validUrl = require('valid-url');
 
 var genHash = require('./genHash.js')
@@ -38,6 +38,15 @@ app.get('/cdn/*', (req, res) => {
     console.log(fileName)
     console.log('ok')
     res.sendFile(fileName, options)
+  })
+})
+
+app.get('/admin/delete', (req,res) => {
+
+  // assume this directory has a lot of files and folders
+  fse.emptyDir('/tmp/some/dir', function (err) {
+    if (!err)
+    res.send('deleted cache successfully')
   })
 })
 

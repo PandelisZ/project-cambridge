@@ -20,6 +20,7 @@
   "dependencies": {
     "aws-sdk": "^2.7.5",
     "express": "^4.14.0",
+    "fs-extra": "^1.0.0",
     "valid-url": "^1.0.9"
   }
 }
