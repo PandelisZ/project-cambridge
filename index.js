@@ -21,8 +21,10 @@ var options = {
     }
   };
 
+app.use('/static', express.static(path.join(__dirname, 'static')))
+
 app.get('/', (req, res) => {
-  res.send('Hello World!')
+  res.sendFile(options.root + 'index.html')
 })
 
 app.get('/cdn/*', (req, res) => {
@@ -62,7 +64,7 @@ var compareFiles = (file) => {
 }
 
 function genFileName(file){
-  return genHash.sha1(file) + path.extname(file)
+  return 'cache/' + genHash.sha1(file) + path.extname(file)
 }
 
 var checkChecksum = (content) => {
@@ -73,17 +75,26 @@ var checkChecksum = (content) => {
 
 var getRemoteFile = (content, cb) => {
   var fileName = genFileName(content)
-  var file = fs.createWriteStream(fileName)
-  var request = http.get(content, (response) => {
-    response.pipe(file)
-    file.on('finish', () => {
-      file.close(cb(fileName));  // close() is async, call cb after close completes.
-    })
-    .on('error', function(err) { // Handle errors
-    fs.unlink(fileName); // Delete the file async. (But we don't check the result)
-    if (cb) cb(err.message);
-    })
-  })
+  fs.access(fileName, fs.F_OK, function(err) {
+    if (!err) {
+        console.log('from cache')
+        cb(fileName)
+    } else {
+      console.log('remote fetch')
+      var file = fs.createWriteStream(fileName)
+      var request = http.get(content, (response) => {
+        response.pipe(file)
+        file.on('finish', () =>{
+          file.close(cb(fileName));  // close() is async, call cb after close completes.
+        })
+        .on('error', function(err) { // Handle errors
+        fs.unlink(fileName); // Delete the file async. (But we don't check the result)
+        if (cb) cb(err.message);
+        })
+      })
+    }
+  });
+
 }
 
 var isUrl = (url) => {
