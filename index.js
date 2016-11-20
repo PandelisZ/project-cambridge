@@ -44,7 +44,7 @@ app.get('/cdn/*', (req, res) => {
 app.get('/admin/delete', (req,res) => {
 
   // assume this directory has a lot of files and folders
-  fse.emptyDir('/tmp/some/dir', function (err) {
+  fse.emptyDir('./cache', function (err) {
     if (!err)
     res.send('deleted cache successfully')
   })
